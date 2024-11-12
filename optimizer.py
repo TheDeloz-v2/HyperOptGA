@@ -69,12 +69,15 @@ class GeneticAlgorithmOptimizer:
         """
 
         scores = []
+        
         for individual in self.population:
             score = self.fitness_function(individual)
             scores.append(score)
+            
             if score > self.best_score:
                 self.best_score = score
                 self.best_individual = individual.copy()
+        
         return scores
 
     def tournament_selection(self, scores):
