@@ -42,6 +42,7 @@ class GeneticAlgorithmOptimizer:
         self.population = []
         self.best_individual = None
         self.best_score = -np.inf
+        self.scores = []
 
     def generate_individual(self):
         """
@@ -141,4 +142,5 @@ class GeneticAlgorithmOptimizer:
             self.population = next_population[:self.population_size]
             if self.verbose:
                 print(f'Best score so far: {self.best_score:.4f}')
-        return self.best_individual, self.best_score
+            self.scores.append(self.best_score)
+        return self.best_individual, self.best_score, self.scores
