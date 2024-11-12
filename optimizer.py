@@ -100,7 +100,7 @@ class GeneticAlgorithmOptimizer:
             if random.random() < 0.5:
                 child1[param], child2[param] = child2[param], child1[param]
         return child1, child2
-
+    
     def mutate(self, individual):
         """
         Mutate an individual.
@@ -109,9 +109,17 @@ class GeneticAlgorithmOptimizer:
         for param, (low, high, data_type) in self.param_limits.items():
             if random.random() < self.mutation_rate:
                 if data_type == 'int':
-                    individual[param] = random.randint(low, high)
+                    individual[param] = np.clip(
+                        int(np.random.normal(individual[param], 1)),
+                        low,
+                        high
+                    )
                 elif data_type == 'float':
-                    individual[param] = random.uniform(low, high)
+                    individual[param] = np.clip(
+                        np.random.normal(individual[param], 0.1 * (high - low)),
+                        low,
+                        high
+                    )
         return individual
 
     def run(self):
